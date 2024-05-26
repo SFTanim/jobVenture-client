@@ -59,7 +59,7 @@ const Navber = () => {
                     {
                         user ?
                             <button className=" common-button">Logout</button> :
-                            <Link to='/register' className="common-button">Login</Link>
+                            <Link to='/login' className="common-button">Login</Link>
                     }
                 </div>
             </div>

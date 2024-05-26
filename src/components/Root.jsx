@@ -5,7 +5,7 @@ import Footer from "./Footer";
 
 const Root = () => {
     return (
-        <div>
+        <div className="font-poppins">
             <Navber></Navber>
             <div className="container mx-auto">
                 <Outlet></Outlet>
