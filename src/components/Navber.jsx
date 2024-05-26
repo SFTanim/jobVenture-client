@@ -5,29 +5,31 @@ import "../../src/App.css"
 
 
 const Navber = () => {
-    const { user } = useContext(AuthContext);
+    const { user, userLogout } = useContext(AuthContext);
 
-    const navLinks = 
+    const navLinks =
         <>
             <li id="navBarLink"><NavLink to="/">Home</NavLink></li>
             <li id="navBarLink"><NavLink to="/allJobs">All Jobs</NavLink></li>
-            {/* {
+            {
                 user &&
-                    <>
-                        <li id="navBarLink"><NavLink to="/appliedJobs">Applied Jobs</NavLink></li>
-                        <li id="navBarLink"><NavLink to="/addJob">Add a Job</NavLink></li>
-                        <li id="navBarLink"><NavLink to="/myJobs">My Jobs</NavLink></li>
-                    </>
-
-            } */}
-            <li id="navBarLink"><NavLink to="/appliedJobs">Applied Jobs</NavLink></li>
-            <li id="navBarLink"><NavLink to="/addJob">Add a Job</NavLink></li>
-            <li id="navBarLink"><NavLink to="/myJobs">My Jobs</NavLink></li>
-
+                <>
+                    <li id="navBarLink"><NavLink to="/appliedJobs">Applied Jobs</NavLink></li>
+                    <li id="navBarLink"><NavLink to="/addJob">Add a Job</NavLink></li>
+                    <li id="navBarLink"><NavLink to="/myJobs">My Jobs</NavLink></li>
+                </>
+            }
             <li id="navBarLink"><NavLink to="/blogs">Blogs</NavLink></li>
             <li id="navBarLink"><NavLink to="/userProfile">User Profile</NavLink></li>
         </>
-    
+
+    const handleLogout = () => {
+        userLogout()
+            .then(() => {
+
+            })
+    }
+
     return (
         <div>
             <div className="navbar bg-base-100">
@@ -58,7 +60,7 @@ const Navber = () => {
                     </ul>
                     {
                         user ?
-                            <button className=" common-button">Logout</button> :
+                            <button onClick={handleLogout} className=" common-button">Logout</button> :
                             <Link to='/login' className="common-button">Login</Link>
                     }
                 </div>

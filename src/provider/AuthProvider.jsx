@@ -1,7 +1,7 @@
-import { createContext, useState } from "react";
+import { createContext, useEffect, useState } from "react";
 import PropTypes from 'prop-types';
 import { ToastContainer, toast } from 'react-toastify';
-import { GithubAuthProvider, GoogleAuthProvider, createUserWithEmailAndPassword, signInWithEmailAndPassword, signInWithPopup, signOut } from "firebase/auth";
+import { GithubAuthProvider, GoogleAuthProvider, createUserWithEmailAndPassword, onAuthStateChanged, signInWithEmailAndPassword, signInWithPopup, signOut } from "firebase/auth";
 import auth from "../firebase/firebase.config";
 
 
@@ -57,6 +57,16 @@ const AuthProvider = ({ children }) => {
     const githubLogin = () => {
         return signInWithPopup(auth, githubProvider)
     }
+
+    useEffect(() => {
+        const unSubscribe = onAuthStateChanged(auth, currentUser => {
+            setUser(currentUser);
+        })
+
+        return () => {
+            unSubscribe();
+        }
+    }, [])
 
 
     const allValues = {

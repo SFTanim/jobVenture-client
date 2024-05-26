@@ -1,10 +1,16 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { HiLink } from "react-icons/hi";
 import 'react-toastify/dist/ReactToastify.css';
+import { useContext } from "react";
+import { AuthContext } from "../provider/AuthProvider";
+import { updateProfile } from "firebase/auth";
+import auth from "../firebase/firebase.config";
 
 
 
 const Register = () => {
+    const { toastWarning, newUserRegister, toastSuccess } = useContext(AuthContext);
+    const navigate = useNavigate();
 
     const handleRegister = (event) => {
         event.preventDefault()
@@ -13,8 +19,46 @@ const Register = () => {
         const email = form.email.value;
         const password = form.password.value;
         const photoUrl = form.photo.value;
-        console.log(name, email, password, photoUrl);
+        const upperCaseCheck = /(?=.*[A-Z])/;
+        const lowerCaseCheck = /(?=.*[a-z])/;
+
+        if (!email) {
+            return toastWarning('Enter your Email')
+        }
+        else if (!name) {
+            return toastWarning('Enter your Name')
+        }
+        else if (!password) {
+            return toastWarning('Enter your Password')
+        }
+        else if (!upperCaseCheck.test(password)) {
+            return toastWarning('Must have an Uppercase letter in the password')
+        }
+        else if (!lowerCaseCheck.test(password)) {
+            return toastWarning('Must have an Lowercase letter in the password')
+        }
+        else if (!photoUrl) {
+            return toastWarning('Enter your PhotoUrl Correctly')
+        }
+
+        newUserRegister(email, password)
+            .then(() => {
+                updateProfile(auth.currentUser, {
+                    displayName: name,
+                    photoURL: photoUrl
+                })
+                toastSuccess("User Created Successfully");
+                {
+                    navigate(location?.state ? location.state : '/')
+                }
+            })
+            .catch((error) => {
+                console.log(error);
+                toastWarning("User Creating Failed, Try Again !")
+            })
     }
+
+
     return (
         <div>
             <div className="mx-auto text-center my-10 text-black font-bold flex flex-col items-center">

@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { FcGoogle } from "react-icons/fc";
 import { FaGithubSquare } from "react-icons/fa";
 import 'react-toastify/dist/ReactToastify.css';
@@ -8,16 +8,71 @@ import { AuthContext } from "../provider/AuthProvider";
 
 
 
-
 const Login = () => {
-    const {userLogin} = useContext(AuthContext);
+    const { userLogin, toastSuccess, toastWarning, githubLogin, googleLogin } = useContext(AuthContext);
+    const navigate = useNavigate();
+    const location = useLocation()
+
+    console.log(location.state);
 
     const handleLogin = (event) => {
         event.preventDefault();
         const form = event.target;
         const userEmail = form.email.value;
         const userPassword = form.password.value;
-        console.log(userEmail, userPassword);
+
+        if (!userEmail) {
+            return toastWarning('Please enter your Email')
+        }
+        else if (!userPassword) {
+            return toastWarning('Please enter your Password')
+        }
+
+        userLogin(userEmail, userPassword)
+            .then(() => {
+                toastSuccess('Login Susscessful')
+                {
+                    navigate(location?.state ? location.state : '/')
+                }
+            })
+            .catch((error) => {
+                if (error.code == 'auth/invalid-email') {
+                    toastWarning("Please provide a valid email")
+                }
+                else if (error.code == 'auth/invalid-credential') {
+                    toastWarning("Please provide a valid Password")
+                }
+                console.log(error.code)
+            })
+    }
+
+    const handleGoogleLogIn = () => {
+        googleLogin()
+            .then((res) => {
+                console.log(res)
+                toastSuccess('Successfull Google login')
+                {
+                    navigate(location?.state ? location.state : '/')
+                }
+            })
+            .catch(error => {
+                console.log(error.message)
+                toastWarning('Unsuccessful Google login')
+            })
+    }
+    const handleGithubLogIn = () => {
+        githubLogin()
+            .then((res) => {
+                console.log(res)
+                toastSuccess('Successfull github login')
+                {
+                    navigate(location?.state ? location.state : '/')
+                }
+            })
+            .catch(error => {
+                console.log(error.message)
+                toastWarning('Unsuccessful github login')
+            })
     }
 
 
@@ -45,8 +100,8 @@ const Login = () => {
             <div className="">
                 <p className="my-3">Or Login with</p>
                 <div className="text-6xl space-x-3">
-                    <button className=""> <FcGoogle /> </button>
-                    <button className=""> <FaGithubSquare /> </button>
+                    <button onClick={handleGoogleLogIn} className=""> <FcGoogle /> </button>
+                    <button onClick={handleGithubLogIn} className=""> <FaGithubSquare /> </button>
                 </div>
             </div>
             <Link className="font-normal underline" to='/register'>Create an Account</Link>
