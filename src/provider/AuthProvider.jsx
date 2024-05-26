@@ -1,16 +1,20 @@
 import { createContext, useState } from "react";
 import PropTypes from 'prop-types';
 import { ToastContainer, toast } from 'react-toastify';
+import { GithubAuthProvider, GoogleAuthProvider, createUserWithEmailAndPassword, signInWithEmailAndPassword, signInWithPopup, signOut } from "firebase/auth";
+import auth from "../firebase/firebase.config";
 
 
 
 export const AuthContext = createContext()
 
 const AuthProvider = ({ children }) => {
-    const [user, setUser] = useState()
+    const [user, setUser] = useState();
+    const googleProvider = new GoogleAuthProvider();
+    const githubProvider = new GithubAuthProvider();
 
-    const toastWarning = (toasting) => {
-        toast.warning(toasting, {
+    const toastWarning = (toastText) => {
+        toast.warning(toastText, {
             position: "top-right",
             autoClose: 5000,
             hideProgressBar: false,
@@ -21,8 +25,8 @@ const AuthProvider = ({ children }) => {
             theme: "light",
         })
     }
-    const toastSuccess = (toasting2) => {
-        toast(toasting2, {
+    const toastSuccess = (toastText) => {
+        toast(toastText, {
             position: "top-right",
             autoClose: 5000,
             hideProgressBar: false,
@@ -33,12 +37,38 @@ const AuthProvider = ({ children }) => {
             theme: "light",
         })
     }
+
+    const newUserRegister = (email, password) => {
+        return createUserWithEmailAndPassword(auth, email, password);
+    }
+
+    const userLogin = (email, password) => {
+        return signInWithEmailAndPassword(auth, email, password)
+    }
+
+    const userLogout = () => {
+        return signOut(auth)
+    }
+
+    const googleLogin = () => {
+        return signInWithPopup(auth, googleProvider)
+    }
+
+    const githubLogin = () => {
+        return signInWithPopup(auth, githubProvider)
+    }
+
 
     const allValues = {
         user,
         setUser,
         toastSuccess,
-        toastWarning
+        toastWarning,
+        newUserRegister,
+        userLogin,
+        userLogout,
+        googleLogin,
+        githubLogin
     }
     return (
         <AuthContext.Provider value={allValues}>

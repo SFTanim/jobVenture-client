@@ -2,12 +2,15 @@ import { Link } from "react-router-dom";
 import { FcGoogle } from "react-icons/fc";
 import { FaGithubSquare } from "react-icons/fa";
 import 'react-toastify/dist/ReactToastify.css';
+import { useContext } from "react";
+import { AuthContext } from "../provider/AuthProvider";
 
 
 
 
 
 const Login = () => {
+    const {userLogin} = useContext(AuthContext);
 
     const handleLogin = (event) => {
         event.preventDefault();
