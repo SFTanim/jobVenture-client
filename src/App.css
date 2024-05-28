@@ -8,13 +8,37 @@
 .common-button {
   border: 1px solid red;
   background-color: transparent;
-  color: rgb(255, 73, 73); 
+  color: rgb(255, 73, 73);
   padding: 4px 16px 4px 16px;
   border-radius: 10px;
 }
-.common-button:hover{
+
+.common-button:hover {
   border: 1px solid transparent;
   background-color: rgb(250, 248, 248);
   padding: 4px 16px 4px 16px;
   border-radius: 10px;
+}
+
+
+.item {
+  min-height: 40rem;
+  min-width: 30rem;
+  padding: 40px;
+}
+
+.item img {
+  width: 100%;
+  height: 100%;
+  border-radius: 2rem;
+  pointer-events: none;
+}
+
+.inner-carosel {
+  display: flex;
+}
+
+.carosel {
+  cursor: grab;
+  overflow: hidden;
 }
