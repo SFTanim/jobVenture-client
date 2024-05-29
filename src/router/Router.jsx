@@ -5,7 +5,8 @@ import Register from "../components/Register";
 import Login from "../components/Login";
 import ErrorPage from "../pages/ErrorPage";
 import CardDetails from "../components/CategoryCards/CardDetails";
-
+import axios from "axios";
+import ProtectedRouter from "./ProtectedRouter";
 
 
 const router = createBrowserRouter([
@@ -27,8 +28,9 @@ const router = createBrowserRouter([
                 element: <Login></Login>
             },
             {
-                path: '/cardDetails:id',
-                element: <CardDetails></CardDetails>,
+                path: '/allCategory/:id',
+                element: <ProtectedRouter><CardDetails></CardDetails></ProtectedRouter>,
+                loader: ({ params }) => axios.get(`http://localhost:5000/allCategory/${params.id}`)
             },
         ]
     },

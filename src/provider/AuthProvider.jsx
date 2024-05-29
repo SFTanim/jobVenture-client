@@ -10,6 +10,7 @@ export const AuthContext = createContext()
 
 const AuthProvider = ({ children }) => {
     const [user, setUser] = useState();
+    const [loading, setLoading] = useState();
     const [isDark, setIsDark] = useLocalStorage("isDark", false);
 
     const googleProvider = new GoogleAuthProvider();
@@ -27,6 +28,7 @@ const AuthProvider = ({ children }) => {
             theme: "light",
         })
     }
+    
     const toastSuccess = (toastText) => {
         toast(toastText, {
             position: "top-right",
@@ -41,28 +43,34 @@ const AuthProvider = ({ children }) => {
     }
 
     const newUserRegister = (email, password) => {
+        setLoading(true)
         return createUserWithEmailAndPassword(auth, email, password);
     }
 
     const userLogin = (email, password) => {
+        setLoading(true)
         return signInWithEmailAndPassword(auth, email, password)
     }
 
     const userLogout = () => {
+        setLoading(true)
         return signOut(auth)
     }
 
     const googleLogin = () => {
+        setLoading(true)
         return signInWithPopup(auth, googleProvider)
     }
 
     const githubLogin = () => {
+        setLoading(true)
         return signInWithPopup(auth, githubProvider)
     }
 
     useEffect(() => {
         const unSubscribe = onAuthStateChanged(auth, currentUser => {
             setUser(currentUser);
+            setLoading(false)
         })
 
         return () => {
@@ -82,7 +90,9 @@ const AuthProvider = ({ children }) => {
         googleLogin,
         githubLogin,
         isDark,
-        setIsDark
+        setIsDark,
+        loading,
+        setLoading
     }
     return (
         <AuthContext.Provider value={allValues}>

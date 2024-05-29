@@ -13,7 +13,7 @@ const Login = () => {
     const navigate = useNavigate();
     const location = useLocation()
 
-    console.log(location.state);
+
 
     const handleLogin = (event) => {
         event.preventDefault();
@@ -77,9 +77,13 @@ const Login = () => {
 
 
     return (
-        <div className="w-1/2 mx-auto text-center my-10 text-black font-bold">
+        <div className="w-1/2 mx-auto text-center my-10 font-bold">
             <h2 className="text-4xl mb-4">Login</h2>
-
+            {
+                location?.state ?
+                    <h2 className=" text-red-600">*You have to login first</h2> :
+                    <h2></h2>
+            }
             <form onSubmit={handleLogin} className="text-left">
                 <div className="my-2 ">
                     <span className="text-xl font-semibold">Email</span>
@@ -101,7 +105,7 @@ const Login = () => {
                 <p className="my-3">Or Login with</p>
                 <div className="text-6xl space-x-3">
                     <button onClick={handleGoogleLogIn} className=""> <FcGoogle /> </button>
-                    <button onClick={handleGithubLogIn} className=""> <FaGithubSquare /> </button>
+                    <button onClick={handleGithubLogIn} className="text-black"> <FaGithubSquare /> </button>
                 </div>
             </div>
             <Link className="font-normal underline" to='/register'>Create an Account</Link>

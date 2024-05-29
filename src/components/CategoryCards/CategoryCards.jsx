@@ -8,7 +8,6 @@ const CategoryCards = ({ categoryName }) => {
     const [categories, setCategories] = useState();
     const axiosSecure = useAxiosSecure();
     const url = `/allCategoryJob/${categoryName}`;
-    // console.log(categoryName);
 
     useEffect(() => {
         axiosSecure.get(url)
@@ -29,7 +28,7 @@ const CategoryCards = ({ categoryName }) => {
                             <h3 className=""><span className="font-bold">Deadline: </span>{data.applicationDeadline}</h3>
                             <h3 className=""><span className="font-bold">Job Applicants Number: </span>{data.jobApplicantsNumber}</h3>
                             <div className="card-actions justify-end">
-                                <Link to={`/cardDetails/${data._id}`} className="card-common-button">View Details</Link>
+                                <Link to={`/allCategory/${data._id}`} className="card-common-button">View Details</Link>
                             </div>
                         </div>
                     </div>)

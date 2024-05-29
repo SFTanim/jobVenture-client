@@ -1,6 +1,8 @@
 import Banner from "../components/Banner";
 import 'react-tabs/style/react-tabs.css';
 import CategoryTabs from "../components/CategoryTabs";
+import JobSeekerSection from "../components/JobSeekerSection";
+import JobProcessSection from "../components/JobProcessSection";
 
 
 const Home = () => {
@@ -9,6 +11,12 @@ const Home = () => {
             <Banner></Banner>
             <div className="">
                 <CategoryTabs></CategoryTabs>
+            </div>
+            <div className="">
+                <JobSeekerSection></JobSeekerSection>
+            </div>
+            <div className="">
+                <JobProcessSection></JobProcessSection>
             </div>
         </div>
     );

@@ -42,8 +42,8 @@ const Navber = () => {
                             {navLinks}
                             {
                                 user ?
-                                    <button className=" common-button">Logout</button> :
-                                    <button className="common-button">Login</button>
+                                    <button onClick={handleLogout} className=" common-button">Logout</button> :
+                                    <Link to='/login' className="common-button">Login</Link>
                             }
                         </ul>
                     </div>

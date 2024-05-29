@@ -61,7 +61,7 @@ const Register = () => {
 
     return (
         <div>
-            <div className="mx-auto text-center my-10 text-black font-bold flex flex-col items-center">
+            <div className="mx-auto text-center my-10 font-bold flex flex-col items-center">
                 <h2 className="text-4xl mb-4"><span className="text-[#FF4949]">Welcome!</span> Create Your Account</h2>
                 <form onSubmit={handleRegister} className="text-left">
                     <div className="flex flex-col lg:flex-row gap-2 w-full">
