@@ -3,13 +3,15 @@ import PropTypes from 'prop-types';
 import { ToastContainer, toast } from 'react-toastify';
 import { GithubAuthProvider, GoogleAuthProvider, createUserWithEmailAndPassword, onAuthStateChanged, signInWithEmailAndPassword, signInWithPopup, signOut } from "firebase/auth";
 import auth from "../firebase/firebase.config";
-
+import useLocalStorage from "use-local-storage";
 
 
 export const AuthContext = createContext()
 
 const AuthProvider = ({ children }) => {
     const [user, setUser] = useState();
+    const [isDark, setIsDark] = useLocalStorage("isDark", false);
+
     const googleProvider = new GoogleAuthProvider();
     const githubProvider = new GithubAuthProvider();
 
@@ -78,7 +80,9 @@ const AuthProvider = ({ children }) => {
         userLogin,
         userLogout,
         googleLogin,
-        githubLogin
+        githubLogin,
+        isDark,
+        setIsDark
     }
     return (
         <AuthContext.Provider value={allValues}>

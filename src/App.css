@@ -6,7 +6,7 @@
 }
 
 .common-button {
-  border: 1px solid red;
+  border: 2px solid transparent;
   background-color: transparent;
   color: rgb(255, 73, 73);
   padding: 4px 16px 4px 16px;
@@ -18,13 +18,18 @@
   background-color: rgb(250, 248, 248);
   padding: 4px 16px 4px 16px;
   border-radius: 10px;
+  color: black;
 }
 
 
+
+
+
+/* For Banner Slider */
 .item {
-  min-height: 40rem;
+  min-height: 70vh;
   min-width: 30rem;
-  padding: 40px;
+  padding: 0px 20px 0px 20px;
 }
 
 .item img {
@@ -41,4 +46,8 @@
 .carosel {
   cursor: grab;
   overflow: hidden;
+}
+
+.title{
+  color: var(--primary-text-color);
 }

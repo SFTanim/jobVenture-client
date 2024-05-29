@@ -1,29 +1,23 @@
-import { motion } from "framer-motion"
-import { useEffect, useRef, useState } from "react";
+import BannerSlider from "./BannerSlider";
 
 
 const Banner = () => {
-    const [width, setWidth] = useState();
-    const carosel = useRef();
-    useEffect(() => {
-        console.log(`ScrollWidth: ${carosel.current.scrollWidth}`,
-            `OffsetWidth: ${carosel.current.offsetWidth}`);
-        setWidth(carosel.current.scrollWidth - carosel.current.offsetWidth)
-    }, [])
+
     return (
-        <div className="border">
-            {/* <motion.h1 animate={{x: 50}}>Banner</motion.h1> */}
-            <motion.div whileTap={{ cursor: "grabbing" }} ref={carosel} className="carosel">
-                <motion.div
-                    drag="x"
-                    dragConstraints={{ right: 0, left: -width }}
-                    className="inner-carosel">
-                    <motion.div className="item"> <img src="https://i.ibb.co/t39xBCJ/Default-dinner-set-1.jpg" alt="" /> </motion.div>
-                    <motion.div className="item"> <img src="https://i.ibb.co/t39xBCJ/Default-dinner-set-1.jpg" alt="" /> </motion.div>
-                    <motion.div className="item"> <img src="https://i.ibb.co/t39xBCJ/Default-dinner-set-1.jpg" alt="" /> </motion.div>
-                    <motion.div className="item"> <img src="https://i.ibb.co/t39xBCJ/Default-dinner-set-1.jpg" alt="" /> </motion.div>
-                </motion.div>
-            </motion.div>
+        <div className="flex flex-col lg:flex-row">
+            {/* Left Side of the Banner*/}
+            <div className="flex-1 flex flex-col justify-center space-y-10 my-10">
+                <div className="space-y-3">
+                <h1 className="text-5xl">Find Your Favourite</h1>
+                <h2 className="text-5xl text-[#FF4949]">Job Immediete</h2>
+                </div>
+                <p className="">Discover your dream job instantly. Explore countless opportunities and secure your favorite position today with just a click. Start your career journey and achieve success.</p>
+            </div>
+
+            {/* Right Side of the Banner */}
+            <div className="flex-1 carosel">
+                <BannerSlider></BannerSlider>
+            </div>
         </div>
     );
 };
