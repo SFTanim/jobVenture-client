@@ -4,6 +4,9 @@ import Root from "../components/Root";
 import Register from "../components/Register";
 import Login from "../components/Login";
 import ErrorPage from "../pages/ErrorPage";
+import CardDetails from "../components/CategoryCards/CardDetails";
+
+
 
 const router = createBrowserRouter([
     {
@@ -22,6 +25,10 @@ const router = createBrowserRouter([
             {
                 path: '/login',
                 element: <Login></Login>
+            },
+            {
+                path: '/cardDetails:id',
+                element: <CardDetails></CardDetails>,
             },
         ]
     },
