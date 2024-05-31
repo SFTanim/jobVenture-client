@@ -7,6 +7,8 @@ import ErrorPage from "../pages/ErrorPage";
 import CardDetails from "../components/CategoryCards/CardDetails";
 import axios from "axios";
 import ProtectedRouter from "./ProtectedRouter";
+import Blogs from "../pages/Blogs";
+import AddAJob from "../components/AllJobsFromUser/AddAJob";
 
 
 const router = createBrowserRouter([
@@ -26,6 +28,14 @@ const router = createBrowserRouter([
             {
                 path: '/login',
                 element: <Login></Login>
+            },
+            {
+                path: '/blogs',
+                element: <Blogs></Blogs>
+            },
+            {
+                path: '/addJob',
+                element: <AddAJob></AddAJob>
             },
             {
                 path: '/allCategory/:id',

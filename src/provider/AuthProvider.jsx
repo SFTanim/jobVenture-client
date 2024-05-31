@@ -28,7 +28,7 @@ const AuthProvider = ({ children }) => {
             theme: "light",
         })
     }
-    
+
     const toastSuccess = (toastText) => {
         toast(toastText, {
             position: "top-right",
@@ -66,6 +66,7 @@ const AuthProvider = ({ children }) => {
         setLoading(true)
         return signInWithPopup(auth, githubProvider)
     }
+    console.log(user);
 
     useEffect(() => {
         const unSubscribe = onAuthStateChanged(auth, currentUser => {

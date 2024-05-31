@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import { useEffect, useState } from "react";
-import CategoryCards from "./CategoryCards/CategoryCards";
+import CategoryCards from "./CategoryCards";
 import { Link } from 'react-router-dom';
 
 

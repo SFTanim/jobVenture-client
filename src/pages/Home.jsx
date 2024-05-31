@@ -1,6 +1,6 @@
-import Banner from "../components/Banner";
+import Banner from "../components/Banner/Banner";
 import 'react-tabs/style/react-tabs.css';
-import CategoryTabs from "../components/CategoryTabs";
+import CategoryTabs from "../components/CategoryCards/CategoryTabs";
 import JobSeekerSection from "../components/JobSeekerSection";
 import JobProcessSection from "../components/JobProcessSection";
 
