@@ -7,7 +7,7 @@ const Blogs = () => {
             <div className="flex-1">
                 <img className="w-full" src="https://i.ibb.co/g4gZ8Ws/88489-text-symbol-question-drawing-mark-free-download-png-hq.png" alt="" />
             </div>
-            <div className="flex-1">
+            <div className="flex-1 space-y-4">
                 <div className="collapse collapse-arrow bg-base-200">
                     <input type="radio" name="my-accordion-2" defaultChecked />
                     <div className="collapse-title text-xl font-medium">

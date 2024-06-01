@@ -9,6 +9,7 @@ import axios from "axios";
 import ProtectedRouter from "./ProtectedRouter";
 import Blogs from "../pages/Blogs";
 import AddAJob from "../components/AllJobsFromUser/AddAJob";
+import JobsFromUser from "../components/AllJobsFromUser/JobsFromUser";
 
 
 const router = createBrowserRouter([
@@ -36,6 +37,10 @@ const router = createBrowserRouter([
             {
                 path: '/addJob',
                 element: <AddAJob></AddAJob>
+            },
+            {
+                path: '/myJobs',
+                element: <JobsFromUser></JobsFromUser>
             },
             {
                 path: '/allCategory/:id',
