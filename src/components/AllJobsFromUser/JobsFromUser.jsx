@@ -2,6 +2,8 @@ import { useContext, useEffect, useState } from "react";
 import useAxiosSecure from "../../hooks/useAxiosSecure";
 import { AuthContext } from "../../provider/AuthProvider";
 import { RiDeleteBin5Line } from "react-icons/ri";
+import { RxUpdate } from "react-icons/rx";
+
 
 
 const JobsFromUser = () => {
@@ -19,10 +21,9 @@ const JobsFromUser = () => {
                 <div className="overflow-x-auto">
                     <table className="table">
                         {/* head */}
-                        <thead>
+                        <thead className="text-xl text-center">
                             <tr>
                                 <th>Job Title</th>
-                                <th>Job Category</th>
                                 <th>Update</th>
                                 <th>Delete</th>
                             </tr>
@@ -31,10 +32,17 @@ const JobsFromUser = () => {
 
                             {
                                 myPosts?.map((post, idx) =>
-                                    <tr key={idx} className="hover">
-                                        <td>{post.jobTitle}</td>
-                                        <td>{post.jobCategory}</td>
-                                        <td><RiDeleteBin5Line /></td>
+                                    <tr key={idx} className="text-center" id="click">
+                                        <td className="">
+
+                                            <h2 className=""><span className="font-bold">Job Title: </span>{post.jobTitle}</h2>
+                                            <h2 className=""><span className="font-bold">Job Category: </span>{post.jobCategory}</h2>
+                                            <h2 className=""><span className="font-bold">Job Description: </span>{post.jobDescription}</h2>
+                                            <h2 className=""><span className="font-bold">Posting Date: </span>{post.postingDate}</h2>
+                                            <h2 className=""><span className="font-bold">Application Deadline: </span>{post.ApplicationDeadLine}</h2>
+                                        </td>
+                                        <td className="text-3xl "><div className="mx-auto w-fit common-button"><RxUpdate /></div></td>
+                                        <td className="text-3xl "><div className="mx-auto w-fit common-button"><RiDeleteBin5Line /></div></td>
                                     </tr>
                                 )
                             }
