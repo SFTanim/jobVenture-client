@@ -4,12 +4,12 @@ import Root from "../components/Root";
 import Register from "../components/Register";
 import Login from "../components/Login";
 import ErrorPage from "../pages/ErrorPage";
-import CardDetails from "../components/CategoryCards/CardDetails";
 import axios from "axios";
 import ProtectedRouter from "./ProtectedRouter";
 import Blogs from "../pages/Blogs";
-import AddAJob from "../components/AllJobsFromUser/AddAJob";
+import CardDetails from './../components/CategoryCards/CardDetails';
 import JobsFromUser from "../components/AllJobsFromUser/JobsFromUser";
+import AddAJob from './../components/AllJobsFromUser/AddAJob';
 
 
 const router = createBrowserRouter([

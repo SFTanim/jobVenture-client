@@ -1,8 +1,8 @@
 import axios from 'axios';
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import { useEffect, useState } from "react";
-import CategoryCards from "./CategoryCards";
 import { Link } from 'react-router-dom';
+import CategoryCards from './CategoryCards';
 
 
 const CategoryTabs = () => {
@@ -28,7 +28,7 @@ const CategoryTabs = () => {
             <p className="mb-10">Discover a diverse range of available job categories tailored to your skills and interests. Explore opportunities across various industries and find the perfect career path for your future.</p>
             <Tabs>
                 <TabList>
-                    <Tab>All Category</Tab>
+                    <Tab>All Jobs</Tab>
                     {
                         allJobCategory?.map((data, idx) => <Tab key={idx}>{data}</Tab>)
                     }

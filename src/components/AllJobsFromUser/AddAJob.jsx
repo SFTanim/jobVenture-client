@@ -3,18 +3,15 @@ import { AuthContext } from "../../provider/AuthProvider";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import useAxiosSecure from "../../hooks/useAxiosSecure";
+import useCurrentDate from "../../hooks/useCurrentDate";
 
 
 const AddAJob = () => {
     const [startDate, setStartDate] = useState(new Date());
     const axiosSecure = useAxiosSecure();
-
     const { user } = useContext(AuthContext);
-    const today = new Date();
-    const month = today.getMonth() + 1;
-    const year = today.getFullYear();
-    const date = today.getDate();
-    const currentDate = month + "/" + date + "/" + year;
+
+    const currentDate = useCurrentDate()
 
     const handleSubmit = event => {
         event.preventDefault();

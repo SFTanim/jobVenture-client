@@ -66,7 +66,6 @@ const AuthProvider = ({ children }) => {
         setLoading(true)
         return signInWithPopup(auth, githubProvider)
     }
-    console.log(user);
 
     useEffect(() => {
         const unSubscribe = onAuthStateChanged(auth, currentUser => {

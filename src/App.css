@@ -13,14 +13,6 @@
   border-radius: 10px;
 }
 
-.card-common-button {
-  border: 1px solid red;
-  background-color: transparent;
-  color: rgb(255, 73, 73);
-  padding: 4px 16px 4px 16px;
-  border-radius: 10px;
-}
-
 .common-button:hover {
   border: 1px solid transparent;
   background-color: rgb(250, 248, 248);
@@ -28,6 +20,22 @@
   border-radius: 10px;
   color: black;
 }
+
+.card-common-button {
+  border: 1px solid red;
+  background-color: transparent;
+  color: rgb(255, 73, 73);
+  padding: 4px 16px 4px 16px;
+  border-radius: 10px;
+}
+.card-common-button:hover {
+  border: 1px solid transparent;
+  background-color: gainsboro;
+  color: rgb(255, 73, 73);
+  padding: 4px 16px 4px 16px;
+  border-radius: 10px;
+}
+
 
 
 
