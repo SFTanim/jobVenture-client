@@ -15,12 +15,13 @@ const CategoryTabs = () => {
                 setAllJobData(res.data);
 
                 // Extract unique categories
-                const uniqueCategories = [...new Set(res.data.map(data => data.category))];
+                const uniqueCategories = [...new Set(res.data?.map(data => data?.jobCategory))];
                 setAllJobCategory(uniqueCategories);
             })
             .catch(err => console.error(err));
     }, []);
-
+console.log(allJobData);
+console.log(allJobCategory);
 
 
     return (
