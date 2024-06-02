@@ -1,20 +1,25 @@
-import { useLoaderData, useParams } from "react-router-dom";
+import { useLoaderData } from "react-router-dom";
 import { IoDocumentTextOutline } from "react-icons/io5";
 import useAxiosSecure from "../../hooks/useAxiosSecure";
 import { useContext } from "react";
 import { AuthContext } from "../../provider/AuthProvider";
+import useCurrentDate from "../../hooks/useCurrentDate";
 
 
 const CardDetails = () => {
     const { user } = useContext(AuthContext)
     const load = useLoaderData();
-    const params = useParams()
     const axiosSecure = useAxiosSecure();
-    console.log(params.id);
-    console.log(load.data);
-    console.log(load?.data?.applicantNumber + 1);
-    console.log(load?.data?.applicantNumber );
-
+    const currentDate = new Date(useCurrentDate());
+    const deadLine = new Date(load?.data?.ApplicationDeadLine);
+    console.log(currentDate);
+    console.log(load?.data);
+    if (currentDate > deadLine) {
+        console.log('currnt', currentDate);
+    }
+    else {
+        console.log('dead', deadLine);
+    }
     const handleApplied = (event) => {
         event.preventDefault();
         const name = user?.displayName;
@@ -46,14 +51,19 @@ const CardDetails = () => {
                         <h3 className=""><span className="font-bold">Job Applicants Number: </span>{load?.data?.jobApplicantsNumber || load.data?.applicantNumber}</h3>
                         {/* The button to open modal */}
                         {
-                            user?.email == load.data?.appliedPersons?.find(data => data?.email == user?.email).email ?
+                            user?.email == load?.data?.appliedPersons?.find(data => data?.email == user?.email)?.email ?
                                 <div className="text-right text-[#FF4949] font-bold">
                                     <p>You Already applied for this job</p>
                                 </div>
                                 :
-                                <div className="text-right">
-                                    <label htmlFor="my_modal_6" className="card-common-button">Apply Now!</label>
-                                </div>
+                                currentDate > deadLine ?
+                                    <div className="text-right text-[#FF4949] font-bold">
+                                        <p>You Cross The DeadLine</p>
+                                    </div>
+                                    :
+                                    <div className="text-right">
+                                        <label htmlFor="my_modal_6" className="card-common-button">Apply Now!</label>
+                                    </div>
                         }
                     </div>
                 </div>

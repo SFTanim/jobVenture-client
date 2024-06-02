@@ -14,9 +14,9 @@ const AppliedJob = () => {
         axiosSecure.get('/allPostsData')
             .then(res => setAllJobs(res.data?.filter(job => job.appliedPersons?.find(data => data?.email === user.email))))
     }, [axiosSecure, user?.email])
+
     console.log(allJobs);
 
-    
     return (
         <div>
             {

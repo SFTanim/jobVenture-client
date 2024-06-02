@@ -79,7 +79,7 @@ const JobsFromUser = () => {
     }
 
     return (
-        <div>
+        <div className="min-h-screen">
             <h2 className="text-2xl lg:text-5xl mx-auto w-fit border-[#FF4949] border-b-4 mb-8">My Jobs Post</h2>
             <div className="border">
                 <div className="overflow-x-auto">

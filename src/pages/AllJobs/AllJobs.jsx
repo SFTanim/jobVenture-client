@@ -12,10 +12,11 @@ const AllJobs = () => {
         axiosSecure.get('/allPostsData')
             .then(res => setAllJobs(res.data))
     }, [axiosSecure])
-    console.log(allJobs);
+
     return (
         <div>
             <h2 className="text-2xl lg:text-5xl mx-auto w-fit border-[#FF4949] border-b-4 mb-8">All Jobs</h2>
+            <div className="flex flex-col gap-3">
             {
                 allJobs?.map((data, idx) =>
                     <div key={idx} className="card border bg-base-100 shadow-xl">
@@ -32,6 +33,7 @@ const AllJobs = () => {
                         </div>
                     </div>)
             }
+            </div>
         </div>
     );
 };

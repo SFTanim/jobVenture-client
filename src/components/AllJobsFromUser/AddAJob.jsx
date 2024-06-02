@@ -20,7 +20,7 @@ const AddAJob = () => {
         const jobCategory = form.category.value;
         const bannerPic = form.bannerPic.value;
         const postingDate = form.postingDate.value;
-        const applicantNumber = form.applicantNumber.value;
+        const applicantNumber = parseInt(form.applicantNumber.value);
         const jobDescription = form.description.value;
         const ApplicationDeadLine = form.deadLine.value;
         const salaryRange = form.salary.value;
