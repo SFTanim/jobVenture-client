@@ -10,6 +10,8 @@ import Blogs from "../pages/Blogs";
 import CardDetails from './../components/CategoryCards/CardDetails';
 import JobsFromUser from "../components/AllJobsFromUser/JobsFromUser";
 import AddAJob from './../components/AllJobsFromUser/AddAJob';
+import AllJobs from "../pages/AllJobs/AllJobs";
+import AppliedJob from "../pages/AppliedJob/AppliedJob";
 
 
 const router = createBrowserRouter([
@@ -43,9 +45,22 @@ const router = createBrowserRouter([
                 element: <JobsFromUser></JobsFromUser>
             },
             {
+                path: '/appliedJobs',
+                element: <AppliedJob></AppliedJob>
+            },
+            {
+                path: '/allJobs',
+                element: <AllJobs></AllJobs>
+            },
+            {
                 path: '/allCategory/:id',
                 element: <ProtectedRouter><CardDetails></CardDetails></ProtectedRouter>,
                 loader: ({ params }) => axios.get(`http://localhost:5000/allCategory/${params.id}`)
+            },
+            {
+                path: '/allPostsData/:id',
+                element: <ProtectedRouter><CardDetails></CardDetails></ProtectedRouter>,
+                loader: ({ params }) => axios.get(`http://localhost:5000/allPostsData/${params.id}`)
             },
         ]
     },

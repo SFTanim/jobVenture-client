@@ -19,7 +19,7 @@ const JobsFromUser = () => {
 
 
     useEffect(() => {
-        axiosSecure.get(`/allPostsData/${user?.email}`)
+        axiosSecure.get(`/allPostsDataWithMail/${user?.email}`)
             .then(res => setMyPosts(res.data))
     }, [axiosSecure, user?.email]);
 
