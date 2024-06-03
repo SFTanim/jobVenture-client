@@ -13,7 +13,7 @@ const CardDetails = () => {
     const navigate = useNavigate()
     const axiosSecure = useAxiosSecure();
     const currentDate = new Date(useCurrentDate());
-    const deadLine = new Date(load?.data?.ApplicationDeadLine);
+    const deadLine = new Date(load?.ApplicationDeadLine);
 
 
     useEffect(() => {
@@ -21,7 +21,7 @@ const CardDetails = () => {
             .then(res => setLoad(res?.data))
     }, [axiosSecure,params])
 
-    
+
     const handleApplied = (event) => {
         event.preventDefault();
         const name = user?.displayName;
@@ -29,12 +29,16 @@ const CardDetails = () => {
         const addAApplicant = load?.data?.applicantNumber + 1;
         const resume = event.target.resume.value;
         const appliedPerson = { name, email, resume }
-        axiosSecure.post(`/allApplied/${load.data?._id}`, { appliedPerson, addAApplicant })
+
+        axiosSecure.post(`/allApplied/${load?._id}`, { appliedPerson, addAApplicant })
             .then(() => {
                 navigate('/appliedJobs')
             })
             .then(() => {
                 toastSuccess('Applied Successfully');
+            })
+            .catch((err)=>{
+                console.log(err.message);
             })
     }
     return (
@@ -107,7 +111,7 @@ const CardDetails = () => {
                             <label className="input input-bordered flex items-center gap-2">
                                 <IoDocumentTextOutline />
 
-                                <input name="resume" type="text" className="grow" placeholder="Resume Url" required />
+                                <input name="resume" type="url" className="grow" placeholder="Resume Url" required />
                             </label>
                         </div>
                         <div className="text-center">
