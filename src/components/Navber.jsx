@@ -1,11 +1,12 @@
 import { useContext } from "react";
-import { Link, NavLink } from "react-router-dom";
+import { Link, NavLink, useNavigate } from "react-router-dom";
 import { AuthContext } from "../provider/AuthProvider";
 import "../../src/App.css"
 
 
 const Navber = () => {
     const { user, userLogout, setIsDark, isDark } = useContext(AuthContext);
+    const navigate = useNavigate()
 
     const navLinks =
         <>
@@ -26,7 +27,7 @@ const Navber = () => {
     const handleLogout = () => {
         userLogout()
             .then(() => {
-
+                navigate('/')
             })
     }
 

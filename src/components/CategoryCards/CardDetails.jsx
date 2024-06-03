@@ -1,4 +1,4 @@
-import { useLoaderData } from "react-router-dom";
+import {  useLoaderData } from "react-router-dom";
 import { IoDocumentTextOutline } from "react-icons/io5";
 import useAxiosSecure from "../../hooks/useAxiosSecure";
 import { useContext } from "react";
@@ -12,14 +12,7 @@ const CardDetails = () => {
     const axiosSecure = useAxiosSecure();
     const currentDate = new Date(useCurrentDate());
     const deadLine = new Date(load?.data?.ApplicationDeadLine);
-    console.log(currentDate);
-    console.log(load?.data);
-    if (currentDate > deadLine) {
-        console.log('currnt', currentDate);
-    }
-    else {
-        console.log('dead', deadLine);
-    }
+
     const handleApplied = (event) => {
         event.preventDefault();
         const name = user?.displayName;
@@ -30,7 +23,7 @@ const CardDetails = () => {
         const appliedPerson = { name, email, resume }
         axiosSecure.post(`/allApplied/${load.data?._id}`, { appliedPerson, addAApplicant })
             .then(() => {
-                alert('done')
+                window.location.reload()
             })
 
     }
@@ -101,7 +94,7 @@ const CardDetails = () => {
                             <label className="input input-bordered flex items-center gap-2">
                                 <IoDocumentTextOutline />
 
-                                <input name="resume" type="text" className="grow" placeholder="Resume Url" />
+                                <input name="resume" type="text" className="grow" placeholder="Resume Url" required />
                             </label>
                         </div>
                         <div className="text-center">

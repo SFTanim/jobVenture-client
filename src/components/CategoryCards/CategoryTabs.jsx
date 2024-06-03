@@ -20,8 +20,6 @@ const CategoryTabs = () => {
             })
             .catch(err => console.error(err));
     }, []);
-console.log(allJobData);
-console.log(allJobCategory);
 
 
     return (
