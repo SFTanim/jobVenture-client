@@ -1,63 +1,76 @@
-import {  useLoaderData } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { IoDocumentTextOutline } from "react-icons/io5";
 import useAxiosSecure from "../../hooks/useAxiosSecure";
-import { useContext } from "react";
+import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../../provider/AuthProvider";
 import useCurrentDate from "../../hooks/useCurrentDate";
 
 
 const CardDetails = () => {
-    const { user } = useContext(AuthContext)
-    const load = useLoaderData();
+    const { user, toastSuccess } = useContext(AuthContext)
+    const [load, setLoad] = useState();
+    const params = useParams();
+    const navigate = useNavigate()
     const axiosSecure = useAxiosSecure();
     const currentDate = new Date(useCurrentDate());
     const deadLine = new Date(load?.data?.ApplicationDeadLine);
 
+
+    useEffect(() => {
+        axiosSecure.get(`/allPostsData/${params?.id}`)
+            .then(res => setLoad(res?.data))
+    }, [axiosSecure,params])
+
+    
     const handleApplied = (event) => {
         event.preventDefault();
         const name = user?.displayName;
         const email = user?.email;
         const addAApplicant = load?.data?.applicantNumber + 1;
         const resume = event.target.resume.value;
-        console.log(resume);
         const appliedPerson = { name, email, resume }
         axiosSecure.post(`/allApplied/${load.data?._id}`, { appliedPerson, addAApplicant })
             .then(() => {
-                window.location.reload()
+                navigate('/appliedJobs')
             })
-
+            .then(() => {
+                toastSuccess('Applied Successfully');
+            })
     }
     return (
         <div>
             <div className="card border bg-base-100 shadow-xl">
                 <div className="card-body flex-col lg:flex-row">
                     <div className="flex-1">
-                        <img src={load.data?.bannerPic} className="rounded-xl w-full" alt="" />
+                        <img src={load?.bannerPic} className="rounded-xl w-full" alt="" />
                     </div>
                     <div className="flex-1">
-                        <h2 className="card-title text-2xl underline">{load.data?.name || load.data?.userName}</h2>
-                        <h3 className=""><span className="font-bold">Job Category:</span> {load?.data?.category || load.data?.jobCategory}</h3>
-                        <h3 className=""><span className="font-bold">Job Title:</span> {load?.data?.jobTitle}</h3>
-                        <h3 className=""><span className="font-bold">Salary: </span>{load?.data?.salaryRange}</h3>
-                        <h3 className=""><span className="font-bold">Posted: </span>{load?.data?.jobPostingDate || load.data?.postingDate}</h3>
-                        <h3 className=""><span className="font-bold">Deadline: </span>{load?.data?.applicationDeadline || load.data?.ApplicationDeadLine}</h3>
-                        <h3 className=""><span className="font-bold">Job Applicants Number: </span>{load?.data?.jobApplicantsNumber || load.data?.applicantNumber}</h3>
+                        <h2 className="card-title text-2xl underline">{load?.name || load?.userName}</h2>
+                        <h3 className=""><span className="font-bold">Job Category:</span> {load?.category || load?.jobCategory}</h3>
+                        <h3 className=""><span className="font-bold">Job Title:</span> {load?.jobTitle}</h3>
+                        <h3 className=""><span className="font-bold">Salary: </span>{load?.salaryRange}</h3>
+                        <h3 className=""><span className="font-bold">Posted: </span>{load?.jobPostingDate || load?.postingDate}</h3>
+                        <h3 className=""><span className="font-bold">Deadline: </span>{load?.applicationDeadline || load?.ApplicationDeadLine}</h3>
+                        <h3 className=""><span className="font-bold">Job Applicants Number: </span>{load?.jobApplicantsNumber || load?.applicantNumber}</h3>
                         {/* The button to open modal */}
                         {
-                            user?.email == load?.data?.appliedPersons?.find(data => data?.email == user?.email)?.email ?
+                            user?.email == load?.appliedPersons?.find(data => data?.email == user?.email)?.email ?
                                 <div className="text-right text-[#FF4949] font-bold">
                                     <p>You Already applied for this job</p>
                                 </div>
                                 :
                                 currentDate > deadLine ?
                                     <div className="text-right text-[#FF4949] font-bold">
-                                        <p>You Cross The DeadLine</p>
+                                        <p>You Cross The DeadLine.</p>
                                     </div>
                                     :
-                                    <div className="text-right">
+                                    <div className="text-right mb-3">
                                         <label htmlFor="my_modal_6" className="card-common-button">Apply Now!</label>
                                     </div>
                         }
+                        <div className="text-right">
+                            <button className="card-common-button" onClick={() => navigate(-1)}>Go Back</button>
+                        </div>
                     </div>
                 </div>
             </div>

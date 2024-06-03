@@ -1,25 +1,24 @@
-import axios from 'axios';
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import { useEffect, useState } from "react";
 import { Link } from 'react-router-dom';
 import CategoryCards from './CategoryCards';
+import useAxiosSecure from '../../hooks/useAxiosSecure';
 
 
 const CategoryTabs = () => {
     const [allJobData, setAllJobData] = useState([]);
     const [allJobCategory, setAllJobCategory] = useState([]);
+    const axiosSecure = useAxiosSecure();
 
     useEffect(() => {
-        axios.get('http://localhost:5000/allCategoryJob')
+        axiosSecure.get('/allCategoryJob')
             .then(res => {
                 setAllJobData(res.data);
-
-                // Extract unique categories
                 const uniqueCategories = [...new Set(res.data?.map(data => data?.jobCategory))];
                 setAllJobCategory(uniqueCategories);
             })
             .catch(err => console.error(err));
-    }, []);
+    }, [axiosSecure]);
 
 
     return (

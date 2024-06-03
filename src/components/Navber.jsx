@@ -6,22 +6,25 @@ import "../../src/App.css"
 
 const Navber = () => {
     const { user, userLogout, setIsDark, isDark } = useContext(AuthContext);
-    const navigate = useNavigate()
+    const navigate = useNavigate();
 
     const navLinks =
         <>
             <li id="navBarLink"><NavLink to="/">Home</NavLink></li>
             <li id="navBarLink"><NavLink to="/allJobs">All Jobs</NavLink></li>
+            <li id="navBarLink"><NavLink to="/blogs">Blogs</NavLink></li>
             {
                 user &&
                 <>
                     <li id="navBarLink"><NavLink to="/appliedJobs">Applied Jobs</NavLink></li>
                     <li id="navBarLink"><NavLink to="/addJob">Add a Job</NavLink></li>
                     <li id="navBarLink"><NavLink to="/myJobs">My Jobs</NavLink></li>
+                    <li className="tooltip tooltip-bottom " data-tip={user?.displayName} id="navBarLink">
+
+                    <img className=" ml-2 max-h-10" src={user?.photoURL} alt="" />
+                    </li>
                 </>
             }
-            <li id="navBarLink"><NavLink to="/blogs">Blogs</NavLink></li>
-            <li id="navBarLink"><NavLink to="/userProfile">User Profile</NavLink></li>
         </>
 
     const handleLogout = () => {

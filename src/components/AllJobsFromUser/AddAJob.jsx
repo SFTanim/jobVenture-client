@@ -4,12 +4,14 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import useAxiosSecure from "../../hooks/useAxiosSecure";
 import useCurrentDate from "../../hooks/useCurrentDate";
+import { useNavigate } from "react-router-dom";
 
 
 const AddAJob = () => {
     const [startDate, setStartDate] = useState(new Date());
     const axiosSecure = useAxiosSecure();
-    const { user } = useContext(AuthContext);
+    const navigate = useNavigate()
+    const { user,toastSuccess } = useContext(AuthContext);
 
     const currentDate = useCurrentDate()
 
@@ -40,13 +42,19 @@ const AddAJob = () => {
             ApplicationDeadLine: ApplicationDeadLine,
             salaryRange: salaryRange,
         })
-            .then(res => console.log(res.data))
+        .then(() => {
+            navigate('/myJobs')
+        })
+        .then(() => {
+            toastSuccess('Post Added Successfully');
+        })
 
     }
 
     return (
         <div className="mx-auto p-10">
             <h2 className="text-2xl lg:text-5xl mx-auto w-fit border-[#FF4949] border-b-4 mb-8">Add A New Job Post</h2>
+
             <form onSubmit={handleSubmit} className="">
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
                     <div className="form-control w-full ">

@@ -4,7 +4,6 @@ import Root from "../components/Root";
 import Register from "../components/Register";
 import Login from "../components/Login";
 import ErrorPage from "../pages/ErrorPage";
-import axios from "axios";
 import ProtectedRouter from "./ProtectedRouter";
 import Blogs from "../pages/Blogs";
 import CardDetails from './../components/CategoryCards/CardDetails';
@@ -54,13 +53,11 @@ const router = createBrowserRouter([
             },
             {
                 path: '/allCategory/:id',
-                element: <ProtectedRouter><CardDetails></CardDetails></ProtectedRouter>,
-                loader: ({ params }) => axios.get(`http://localhost:5000/allCategory/${params.id}`)
+                element: <ProtectedRouter><CardDetails></CardDetails></ProtectedRouter>
             },
             {
                 path: '/allPostsData/:id',
-                element: <ProtectedRouter><CardDetails></CardDetails></ProtectedRouter>,
-                loader: ({ params }) => axios.get(`http://localhost:5000/allPostsData/${params.id}`)
+                element: <ProtectedRouter><CardDetails></CardDetails></ProtectedRouter>
             },
         ]
     },
