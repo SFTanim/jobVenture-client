@@ -69,7 +69,7 @@ const AddAJob = () => {
                             <span className="text-lg lg:text-2xl">Job Category</span>
                         </div>
                         <select className="select select-bordered w-full" name="category" id="">
-                            <option value="OnSite">On Site</option>
+                            <option value="On Site">On Site</option>
                             <option value="Remote">Remote</option>
                             <option value="Part-Time">Part-Time</option>
                             <option value="Hybrid">Hybrid</option>

@@ -21,7 +21,7 @@ const Navber = () => {
                     <li id="navBarLink"><NavLink to="/myJobs">My Jobs</NavLink></li>
                     <li className="tooltip tooltip-bottom " data-tip={user?.displayName} id="navBarLink">
 
-                    <img className=" ml-2 max-h-10" src={user?.photoURL} alt="" />
+                    <img className="h-10 rounded-3xl" src={user?.photoURL} alt="" />
                     </li>
                 </>
             }
