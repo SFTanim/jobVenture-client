@@ -1,27 +1,35 @@
-import { useContext, useEffect, useState } from "react";
-import useAxiosSecure from "../../hooks/useAxiosSecure";
+import { useContext, useState } from "react";
 import { AuthContext } from "../../provider/AuthProvider";
 import { RiDeleteBin5Line } from "react-icons/ri";
 import { RxUpdate } from "react-icons/rx";
 import Swal from 'sweetalert2/dist/sweetalert2.js'
 import 'sweetalert2/src/sweetalert2.scss'
 import DatePicker from "react-datepicker";
+import useAxiosPublic from "../../hooks/useAxiosPublic";
+import { useQuery } from "@tanstack/react-query";
 
 
 const JobsFromUser = () => {
     const [targetedData, setTargetedData] = useState([]);
     const [startDate, setStartDate] = useState(new Date());
-    const [myPosts, setMyPosts] = useState();
     const { user } = useContext(AuthContext);
-    const axiosSecure = useAxiosSecure();
+    const axiosPublic = useAxiosPublic();
 
     // console.log(myPosts);
 
 
-    useEffect(() => {
-        axiosSecure.get(`/allPostsDataWithMail/${user?.email}`)
-            .then(res => setMyPosts(res.data))
-    }, [axiosSecure, user?.email]);
+ const {
+    isPending,
+    error,
+    data: myPosts,
+  } = useQuery({
+    queryKey: ["allJobs"],
+    queryFn: async () => {
+      const res = await axiosPublic.get(`/allPostsDataWithMail/${user?.email}`);
+      return res.data;
+    },
+  });
+
 
 
     // Update Data
@@ -49,7 +57,7 @@ const JobsFromUser = () => {
             confirmButtonText: "Yes, Update it!"
         }).then((result) => {
             if (result.isConfirmed) {
-                axiosSecure.put(`/allPostsData/${targetedData?._id}`, newData)
+                axiosPublic.put(`/allPostsData/${targetedData?._id}`, newData)
                     .then(() => {
                         window.location.reload()
                     })
@@ -70,7 +78,7 @@ const JobsFromUser = () => {
             confirmButtonText: "Yes, delete it!"
         }).then((result) => {
             if (result.isConfirmed) {
-                axiosSecure.delete(`/allPostsData/${id}`)
+                axiosPublic.delete(`/allPostsData/${id}`)
                     .then(() => {
                         window.location.reload()
                     })
@@ -95,6 +103,33 @@ const JobsFromUser = () => {
                         <tbody>
 
                             {
+                                isPending ? (
+                                    // Loading Skeleton
+                                    <div className="flex flex-col gap-4">
+                                      <div className="skeleton h-32 w-full"></div>
+                                      <div className="skeleton h-4 w-28"></div>
+                                      <div className="skeleton h-4 w-full"></div>
+                                      <div className="skeleton h-4 w-full"></div>
+                                    </div>
+                                  ) : error ? (
+                                    // Error Alert
+                                    <div role="alert" className="alert alert-error">
+                                      <svg
+                                        xmlns="http://www.w3.org/2000/svg"
+                                        className="h-6 w-6 shrink-0 stroke-current"
+                                        fill="none"
+                                        viewBox="0 0 24 24"
+                                      >
+                                        <path
+                                          strokeLinecap="round"
+                                          strokeLinejoin="round"
+                                          strokeWidth="2"
+                                          d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z"
+                                        />
+                                      </svg>
+                                      <span>Error! Task failed successfully.</span>
+                                    </div>
+                                  ) :
                                 myPosts?.map((post, idx) =>
                                     <tr key={idx} className="text-center" id="click">
                                         <td className="">

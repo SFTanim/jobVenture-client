@@ -7,7 +7,6 @@ const BannerSlider = () => {
     const [width, setWidth] = useState();
     const carosel = useRef();
     useEffect(() => {
-        // console.log(`ScrollWidth: ${carosel.current.scrollWidth}`, `OffsetWidth: ${carosel.current.offsetWidth}`);
         setWidth(carosel.current.scrollWidth - carosel.current.offsetWidth)
     }, [])
 
